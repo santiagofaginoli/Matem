@@ -160,10 +160,17 @@ class Grafo:
 
                 peso_contrario = self.matriz[j][i]
 
-                if self.grafo_completo or peso_contrario == 0:
-                    # Grafo completo o arista unidireccional
+                if self.grafo_completo:
+                    plt.plot([x1, x2], [y1, y2], color='black', lw=1.5)
+                    xm, ym = (x1 + x2) / 2, (y1 + y2) / 2
+                    plt.text(xm, ym, str(peso), color='red', fontsize=9, fontweight='bold', ha='center', va='bottom')
+                    drawn_pairs.add((origen, destino))
+                    drawn_pairs.add((destino, origen))
+
+                # 2️⃣ Si es personalizado y no hay peso en sentido contrario (solo una dirección)
+                elif peso_contrario == 0:
                     plt.annotate("", xy=(x2, y2), xytext=(x1, y1),
-                                 arrowprops=dict(arrowstyle='-|>', color='black', lw=1.5))
+                                arrowprops=dict(arrowstyle='-|>', color='black', lw=1.5))
                     xm, ym = (x1 + x2) / 2, (y1 + y2) / 2
                     plt.text(xm, ym, str(peso), color='red', fontsize=9, fontweight='bold', ha='center', va='bottom')
                     drawn_pairs.add((origen, destino))
